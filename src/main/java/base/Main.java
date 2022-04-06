@@ -59,7 +59,7 @@ public class Main {
     }
 
     public int[] sortedSquaredArray(int[] array) {
-        return IntStream.of(array).map(i -> i*i).sorted().toArray();
+        return IntStream.of(array).map(i -> i * i).sorted().toArray();
     }
 
     public static int[] sortedSquaredArray2(int[] array) {
@@ -106,6 +106,21 @@ public class Main {
             points++;
             teamToWins.put(team, points);
         }
+    }
+
+    public int nonConstructibleChange(int[] coins) {
+        if (coins == null) {
+            return 1;
+        }
+        Arrays.sort(coins);
+        int changeValue = 0;
+        for (int coin : coins) {
+            if (coin > changeValue + 1) {
+                return changeValue + 1;
+            }
+            changeValue += coin;
+        }
+        return changeValue + 1;
     }
 
 }
