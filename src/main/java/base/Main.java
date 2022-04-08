@@ -2,7 +2,6 @@ package base;
 
 import java.util.*;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static java.lang.Math.abs;
 
@@ -121,6 +120,49 @@ public class Main {
             changeValue += coin;
         }
         return changeValue + 1;
+    }
+
+    public static int findClosestValueInBst(BST tree, int target) {
+        if (tree == null) {
+            return 0;
+        }
+        BST currentTree = tree;
+
+        int valueWithLowestDelta = tree.value;
+        int currentlyLowestDelta = getDelta(tree.value, target);
+
+        while (currentTree != null) {
+            int value = currentTree.value;
+            int currentDelta = getDelta(value, target);
+            if (currentlyLowestDelta > currentDelta) {
+                currentlyLowestDelta = currentDelta;
+                valueWithLowestDelta = value;
+            }
+            if (value > target) {
+                currentTree = currentTree.left;
+            } else if (value == target) {
+                return value;
+            } else {
+                currentTree = currentTree.right;
+            }
+        }
+        return valueWithLowestDelta;
+    }
+
+    private static int getDelta(int value, int target) {
+        return Math.abs(value - target);
+    }
+
+    static class BST {
+        public int value;
+        public BST left;
+        public BST right;
+
+
+        // Stock Presentation Service
+        public BST(int value) {
+            this.value = value;
+        }
     }
 
 }
